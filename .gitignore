@@ -1,0 +1,12 @@
+/node_modules/
+/.env
+/public/assets/
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+/file-storage/project-repository-storage/
+###< symfony/framework-bundle ###
