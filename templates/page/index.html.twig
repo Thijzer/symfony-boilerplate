@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+{% block title %}home{% endblock%}
+
+{% block body %}
+    {% if article is defined %}
+    {% for article in my_pager.currentPageResults %}
+        {% set blog_path = path('blog_show', { 'slug': article.slug })  %}
+        <article class="blog">
+            <div class="date"><time datetime="{{ article.created|date('c') }}">{{ article.created|date('l, F j, Y') }}</time></div>
+            <header>
+                <h2><a href="{{ blog_path }}">{{ article.title }}</a></h2>
+            </header>
+
+            <img src="{{ asset(['images/', article.image]|join) }}" />
+            <div class="snippet">
+                <p>{{ article.body(500) }}</p>
+                <p class="continue"><a href="{{ blog_path }}">{% trans %}blog.continue.reading{% endtrans %}</a></p>
+            </div>
+
+            <footer class="meta">
+                <p>{% trans %}blog.comments: {% endtrans %}  <a href="{{ blog_path }}#comments">{{ article.comments|length }}</a></p>
+                <p>{% trans %}blog.posted.by{% endtrans %} <span class="highlight">{{ article.author }}</span> at {{ article.created|date('h:iA') }}</p>
+                <p>{% trans %}blog.tags: {% endtrans %} <span class="highlight">{{ article.tags }}</span></p>
+            </footer>
+        </article>
+    {% else %}
+        <p>{% trans %}blog.no.articles{% endtrans %} </p>
+    {% endfor %}
+    {% endif %}
+    <div class="pagerfanta">
+        {{ pagerfanta(my_pager) }}
+    </div>
+{% endblock %}

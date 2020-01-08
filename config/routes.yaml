@@ -1,0 +1,14 @@
+page_about:
+  path: /about
+  controller: App\Controller\PageController::AboutPage
+  methods:    GET
+
+page_contact:
+  path: /contact
+  controller: App\Controller\PageController::ContactPage
+  methods:    GET|POST
+
+blog_homepage:
+  path: /
+  controller:  App\Controller\ArticleController::index
+  methods: GET

@@ -1,0 +1,27 @@
+# config/validator/validation.yaml
+App\Entity\Enquiry:
+  properties:
+    name:
+      - NotBlank: ~
+    email:
+      - Email:
+          message: 'The email {{ value }} is not a valid email.'
+    subject:
+      - NotBlank: ~
+      - Length:
+          max: 50
+          maxMessage: 'Your first name cannot be longer than {{ limit }}'
+    body:
+      - Length:
+          min: 5
+          minMessage: 'Your body must be at least {{ limit }} characters long'
+
+App\Entity\Comment:
+  properties:
+    user:
+      - NotBlank:
+          message: 'You must enter your name.'
+    comment:
+      - NotBlank:
+          message: 'You must enter a comment.'
+
