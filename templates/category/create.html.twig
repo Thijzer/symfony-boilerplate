@@ -1,3 +1,6 @@
+{% extends 'layout.html.twig' %}
+
+
 {% block body %}
 
     {% for flashMessage in app.session.flashbag.get('blogger-notice') %}
@@ -6,7 +9,7 @@
         </div>
     {% endfor %}
 
-    {% include 'form/form.html.twig' with { 'form': form } %}
+    {% include 'form/categoryForm.html.twig' %}
 
     {# trick to redirect from a embedded controller with form #}
     {% if form.vars.submitted and form.vars.valid %}

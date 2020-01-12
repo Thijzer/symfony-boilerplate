@@ -29,9 +29,8 @@ class Article
 
     protected $categories;
 
-    public function __construct($author)
+    public function __construct()
     {
-        $this->author = $author;
 
         $this->categories = new ArrayCollection();
 
@@ -43,6 +42,13 @@ class Article
 
         $this->setUpdated(clone $dateTime);
 
+    }
+
+    public function createArticle($author,$title,$body)
+    {
+        $this->author=$author;
+        $this->body=$body;
+        $this->title=$title;
     }
 
     public function getId()
@@ -60,6 +66,11 @@ class Article
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function setAuthor($author)
+    {
+        $this->author = $author;
     }
 
     public function getAuthor()
@@ -183,6 +194,13 @@ class Article
 
     public function addCategory(Category $category)
     {
+        $collectionCategorie = $this->getCategories();
+
+        if($collectionCategorie->contains($category))
+        {
+            return false;
+        }
+
         $this->categories[]=$category;
     }
 

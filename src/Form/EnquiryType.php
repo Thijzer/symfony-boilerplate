@@ -2,6 +2,7 @@
 // src/Blogger/BlogBundle/Form/EnquiryType.php
 namespace App\Form;
 
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -11,9 +12,9 @@ class EnquiryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder->add('name', TextType::class);
         $builder->add('email', EmailType::class);
-        $builder->add('subject');
+        $builder->add('subject', TextType::class);
         $builder->add('body', TextareaType::class);
     }
 

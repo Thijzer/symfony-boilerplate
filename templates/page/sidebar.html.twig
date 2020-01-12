@@ -1,21 +1,24 @@
+<section class="section">
+    <header>
+        <h3>categories</h3>
+    </header>
+    <p class="tags">
+        {% for category in categories %}
 
-    <section class="section">
-        <header>
-            <h3>categories</h3>
-        </header>
-        <p class="tags">
-        </p>
-    </section>
-    <section class="section">
-        <header>
-            <h3>cloud</h3>
-        </header>
-        <p class="tags">
-        <p>tags</p>
-        </p>
-    </section>
-    <section class="section">
-        <header>
-            <h3>comments</h3>
-        </header>
-    </section>
+        <a  style="font-size: 16px; display: block; padding: 5px" href="{{ path('blog_category_show', { 'category_id':  category.id}) }}">
+            {{ category.name }}
+        </a>
+        {% else %}
+        <p>categories</p>
+        {% endfor %}
+    </p>
+    <header>
+        <h3>Create</h3>
+    </header>
+    <p class="creates">
+        <a style="font-size: 16px; display: block; padding: 5px" href="{{ path('article_create') }}">Create Article!</a>
+        <a style="font-size: 16px; display: block; padding: 5px" href="{{ path('category_create') }}">Create Category!</a>
+    </p>
+</section>
+
+

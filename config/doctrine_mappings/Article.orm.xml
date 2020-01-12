@@ -9,16 +9,23 @@
         <field name="title" type="string"/>
         <field name="author" type="string" length="100"/>
         <field name="body" type="text"/>
-        <field name="image" type="string" length="20"/>
-        <field name="tags" type="text"/>
-
-        <many-to-one field="comments" target-entity="Comment" />
+        <field name="image" type="string" length="20" nullable="true"/>
+        <field name="tags" type="text" nullable="true"/>
 
         <field name="created" type="datetime"/>
         <field name="updated" type="datetime"/>
         <field name="slug" type="string"/>
 
-        <many-to-one field="categories" target-entity="Category" />
+        <many-to-many field="categories" target-entity="App\Entity\Category">
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-many>
+        <many-to-many field="comments" target-entity="App\Entity\Comment">
+            <cascade>
+                <cascade-persist />
+            </cascade>
+        </many-to-many>
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="setUpdatedValue"/>

@@ -9,9 +9,23 @@ class Category
 
     private $name;
 
-    public function __construct(string $name)
+    private $code_name;
+
+    public function __construct()
     {
-        $this->name=$name;
+
+    }
+
+    public function setName($name)
+    {
+        $this->name=strtolower($name);
+
+        $this->code_name= base64_encode(strtolower($name));
+    }
+
+    public function getCodeName()
+    {
+        return $this->code_name;
     }
 
     public function getId()

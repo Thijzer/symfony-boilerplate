@@ -48,26 +48,15 @@ class PageController extends AbstractController
 
     public function sidebar()
     {
-        $articleRepository= $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $categories= $this->getArticleRepository()->findAll();
 
-        $categories = $this->createCategoryList($articleRepository);
-
-
-
-        return $this->render('Page/sidebar.html.twig', []);
+        return $this->render('Page/sidebar.html.twig', [
+            'categories'=> $categories
+        ]);
     }
 
-    public function createCategoryList($articleCategories)
+    public function getArticleRepository()
     {
-        $categories = [];
-        foreach ($articleCategories as $article_Category)
-        {
-            $categories = array_merge(explode(',',$article_Category['categories']),$categories);
-        }
-
-        foreach ($categories as &$category) {
-            $category = trim($category);
-        }
-        return $categories;
+        return $this->getDoctrine()->getRepository(Category::class);
     }
 }

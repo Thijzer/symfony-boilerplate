@@ -15,10 +15,10 @@
     </article>
     <section class="comments" id="comments">
         <section class="previous-comments">
-            <h3>{% trans %}blog.comments{% endtrans %}</h3>
+            <h3>comments</h3>
             {% include 'Comment/index.html.twig' with { 'comments': comments } %}
         </section>
-        <h3>{% trans %}blog.add.comment{% endtrans %}</h3>
+        <h3>blog add</h3>
         {{ render(controller('App\\Controller\\CommentController::create', { 'articleId': article.id, 'request': app.request})) }}
     </section>
 {% endblock %}

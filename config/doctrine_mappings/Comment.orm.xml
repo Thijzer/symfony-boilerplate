@@ -6,6 +6,7 @@
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
+
         <field name="user" type="string"/>
         <field name="comment" type="text"/>
         <field name="approved" type="boolean"/>

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -31,5 +32,24 @@ class ArticleRepository extends ServiceEntityRepository
             $qb->setMaxResults($limit);
         }
         return $qb;
+    }
+
+    public function findAllArticlesByCategoryIDS($categoryId)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select('a, co')
+            ->leftJoin('a.comments', 'co')
+            ->leftJoin('a.categories', 'ca')
+            ->addOrderBy('a.created', 'DESC')
+
+        ;
+        $qb->where($qb->expr()->in('ca.id', [$categoryId]));
+
+        return $qb->getQuery();
+    }
+
+    public function findBySlug($slug)
+    {
+        return $this->findOneBy(['slug' => $slug]);
     }
 }

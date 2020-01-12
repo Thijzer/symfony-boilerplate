@@ -17,9 +17,8 @@ class Comment
 
     protected $updated;
 
-    public function __construct(string $comment)
+    public function __construct()
     {
-        $this->comment=$comment;
 
         $dateTime = new \DateTime();
 
@@ -28,7 +27,6 @@ class Comment
         $this->setUpdated(clone $dateTime);
 
         $this->setApproved(true);
-
     }
 
     public function update(string $comment)
@@ -53,6 +51,10 @@ class Comment
         return $this->user;
     }
 
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
     public function getComment()
     {
         return $this->comment;

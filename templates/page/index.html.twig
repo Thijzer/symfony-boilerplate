@@ -2,9 +2,9 @@
 {% block title %}home{% endblock%}
 
 {% block body %}
-    {% if article is defined %}
+
     {% for article in my_pager.currentPageResults %}
-        {% set blog_path = path('blog_show', { 'slug': article.slug })  %}
+        {% set blog_path = path('blog_show',{ 'slug': article.slug })  %}
         <article class="blog">
             <div class="date"><time datetime="{{ article.created|date('c') }}">{{ article.created|date('l, F j, Y') }}</time></div>
             <header>
@@ -26,7 +26,6 @@
     {% else %}
         <p>{% trans %}blog.no.articles{% endtrans %} </p>
     {% endfor %}
-    {% endif %}
     <div class="pagerfanta">
         {{ pagerfanta(my_pager) }}
     </div>

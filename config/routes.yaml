@@ -12,3 +12,23 @@ blog_homepage:
   path: /
   controller:  App\Controller\ArticleController::index
   methods: GET
+
+article_create:
+  path: /article/create/
+  controller:  App\Controller\ArticleController::create
+  methods: GET|POST
+
+category_create:
+  path: /category/create/
+  controller:  App\Controller\CategoryController::create
+  methods: GET|POST
+
+blog_show:
+  path: /blog/show/{slug}
+  controller:  App\Controller\ArticleController::show
+  methods: GET|POST
+
+blog_category_show:
+  path: /blog/sho/{category_id}
+  controller:  App\Controller\ArticleController::showByCategory
+  methods: GET|POST

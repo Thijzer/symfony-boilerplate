@@ -7,5 +7,6 @@
             <generator strategy="AUTO"/>
         </id>
         <field name="name" type="string"/>
+        <field name="code_name" type="string" unique="true"/>
     </entity>
 </doctrine-mapping>
