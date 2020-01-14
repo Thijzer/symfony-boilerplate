@@ -479,64 +479,6 @@ class Mail
 }
 ```
 
-
-* MailerService.php
-
-```
-class MailerService implements LoggerAwareInterface
-{
-    use LoggerAwareTrait;
-
-    private $mailer;
-    private $twig;
-
-    public function __construct(Environment $twig, Swift_Mailer $mailer)
-    {
-        $this->twig = $twig;
-        $this->mailer = $mailer;
-    }
-
-    public function sendMail(Mail $mail)
-    {
-        try {
-            $message = new Swift_Message(
-                $mail->getSubject(),
-                $mail->getBody()
-            );
-
-            $message
-                ->setFrom($mail->getSender()->getEmail())
-                ->setTo($mail->getReceiver()->getEmail())
-            ;
-
-            $this->mailer->send($message);
-        }
-        catch (\Swift_TransportException $STe) {
-            $errorMsg = "the mail service has encountered a problem. Please retry later or contact the site admin.";
-
-            $this->logger->critical($errorMsg);
-        }
-    }
-
-    public function renderTemplate($templateName, array $context)
-    {
-        try {
-            return $this->twig->render(
-                $templateName,
-                $context
-            );
-        } catch (LoaderError $e) {
-        } catch (RuntimeError $e) {
-        } catch (SyntaxError $e) {
-        }
-
-        return false;
-    }
-}
-```
-
-we will use `swift mailer` to send our `Mail` entity.
-
 In our `Event` directory we will make the file
 * EnquiryEvent.php
 
@@ -562,33 +504,43 @@ In our `EventSubscriber` directory we will make the file
 * ContactPageEventSubscriber.php
 
 ```
-namespace App\EventSubscriber;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use App\Mailer\EmailAddress;
-use App\Mailer\Mail;
-use App\Mailer\MailerService;
-use App\Event\EnquiryEvent;
-
 class ContactPageEventSubscriber implements EventSubscriberInterface
 {
-    private $mailerService;
+    protected $mailer;
 
-    public function __construct(MailerService $mailerService)
+    public function __construct(MailerInterface $mailer)
     {
-        $this->mailerService=$mailerService;
+        $this->mailer=$mailer;
     }
 
     public function onCustomEvent(EnquiryEvent $event)
     {
         $enquiry= $event->getCode();
+        $mail = $this->getMail($enquiry);
 
-        $this->mailerService->sendMail(new Mail('Contact enquiry from symblog'
-            ,EmailAddress::createEmailAddress('simsimpeeeters@gmail.com','blabla')
-            ,EmailAddress::createEmailAddress('simsimpeeeters@gmail.com','blabla')
-            ,$this->mailerService->renderTemplate('page/contactEmail.txt.twig', [
-                'enquiry' => $enquiry,
-            ])));
+        try {
+            $email = (new TemplatedEmail())
+                ->from($mail->getSender()->getEmail())
+                ->to($mail->getReceiver()->getEmail())
+                ->subject($mail->getSubject())
+                ->htmlTemplate('emails/contactEmail.html.twig')
+                ->context(['name' => $mail->getReceiver()->getName(),'body' => $mail->getBody() ])
+            ;
+
+            $this->mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+        }
+
+    }
+
+    private function getMail($enquiry)
+    {
+        return new Mail(
+            $enquiry->getSubject(),
+            new EmailAddress('sysadmin@induxx.be'),
+            new EmailAddress($enquiry->getEmail(), $enquiry->getName()),
+            $enquiry->getBody()
+        );
     }
 
     /**
@@ -609,7 +561,13 @@ In the function `getSubscribedEvents` we need to
 return the event we have subscribed. 
 with our methods and the priority of those methods.
 
-https://symfony.com/doc/current/event_dispatcher.html - event & subscriber!
+Since symfony 4.3 there is a new mailer. 
+So we don't need to use `swift mailer` anymore. 
+Instead we can use `symfony mailer`. Which is way easy'er to use.
+
+https://www.youtube.com/watch?v=yfTLx-fcJio -- youtube symfony 4 in action!
+https://symfony.com/doc/current/mailer.html -- symfony mailer!
+https://symfony.com/doc/current/event_dispatcher.html -- event & subscriber!
 
 In our page directory in the templates directory. Add the file
 * contact_html.twig
@@ -648,16 +606,44 @@ In our page directory in the templates directory. Add the file
 {% endblock %}
 ```
 
+Also make an `emails` directory and here we will add the file
 * contactEmail.html.twig
 
 ```
-{# src/symfony-boilerplate/templates/page/contactEmail.txt.twig#}
-A contact enquiry was made by {{ enquiry.name }} at {{ "now" | date("Y-m-d H:i") }}.
-Reply-To: {{ enquiry.email }}
-Subject: {{ enquiry.subject }}
-Body:
-{{ enquiry.body }}
+{% apply inky_to_html|inline_css( asset('css/foundation_email.css') ) %}
+
+    <container>
+        <row class="header">
+                <columns>
+                        <h1 class="text-center">Welcome {{ name }}!</h1>
+                </columns>
+        </row>
+        <row class="body">
+            <columns>
+                <img class="main-img" width="548"
+                     src="https://miac.swiss/gallery/full/126/slider3@2x.jpg"
+                     alt="">
+            </columns>
+        </row>
+        <row class="footer">
+            <columns>
+               <p>Dank je voor contact met ons te nemen. we beloven om zo snel mogenlijk te antwoorden.
+                   <br>Met vriendelijke groeten!</p>
+                <p>Het blog team</p>
+            </columns>
+        </row>
+    </container>
+
+{% endapply %}
 ```
+
+Creating beautifully designed emails that work on every email client is so complex 
+that there are HTML/CSS frameworks dedicated to that. 
+One of the most popular frameworks is called Inky. 
+It defines a syntax based on some simple tags which are later transformed into 
+the real HTML code sent to users:
+
+https://foundation.zurb.com/emails/docs/inky.html -- inky!
 
 ## [Part 3] -  The Blog Model: Using Doctrine 5
 
@@ -1105,6 +1091,9 @@ If we want it to work. We will need to make use of `querybuilders`
 
 in our `repository` directory add this to `ArticleRepository.php`
 
+https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/query-builder.html - 
+query builder!
+
 ```
 public function findAllArticlesQuery($limit = null)
     {
@@ -1262,4 +1251,12 @@ Finally create a function called `create()` in our controller.
         ]);
     }
 ```
+
+You can now try to create a create function for `category` and or `article`. 
+If you would like to practice.
+
+https://symfony.com/doc/current/doctrine.html - doctrine!
+
+
+
 

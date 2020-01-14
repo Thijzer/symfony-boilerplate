@@ -1,0 +1,25 @@
+{% apply inky_to_html|inline_css( asset('css/foundation_email.css') ) %}
+
+    <container>
+        <row class="header">
+                <columns>
+                        <h1 class="text-center">Welcome {{ name }}!</h1>
+                </columns>
+        </row>
+        <row class="body">
+            <columns>
+                <img class="main-img" width="548"
+                     src="https://miac.swiss/gallery/full/126/slider3@2x.jpg"
+                     alt="">
+            </columns>
+        </row>
+        <row class="footer">
+            <columns>
+               <p>Dank je voor contact met ons te nemen. we beloven om zo snel mogenlijk te antwoorden.
+                   <br>Met vriendelijke groeten!</p>
+                <p>Het blog team</p>
+            </columns>
+        </row>
+    </container>
+
+{% endapply %}
