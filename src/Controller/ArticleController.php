@@ -87,9 +87,6 @@ class ArticleController extends AbstractController
     {
         return $this->getDoctrine()->getRepository(Article::class);
     }
-    private function getCategoryRepository(){
-        return $this->getDoctrine()->getRepository(Category::class);
-    }
 
     private function pagination($page, $articles)
     {

@@ -16,14 +16,11 @@
         <field name="updated" type="datetime"/>
         <field name="slug" type="string"/>
 
-        <many-to-many field="categories" target-entity="App\Entity\Category">
-            <cascade>
-                <cascade-persist />
-            </cascade>
-        </many-to-many>
+        <many-to-many field="categories" target-entity="App\Entity\Category" />
+
         <many-to-many field="comments" target-entity="App\Entity\Comment">
             <cascade>
-                <cascade-persist />
+                <cascade-remove />
             </cascade>
         </many-to-many>
 

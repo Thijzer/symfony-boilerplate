@@ -29,6 +29,6 @@ blog_show:
   methods: GET|POST
 
 blog_category_show:
-  path: /blog/sho/{category_id}
+  path: /blog/category/show/{category_id}
   controller:  App\Controller\ArticleController::showByCategory
   methods: GET|POST

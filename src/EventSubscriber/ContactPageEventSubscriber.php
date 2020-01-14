@@ -2,31 +2,40 @@
 
 namespace App\EventSubscriber;
 
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\Mailer\EmailAddress;
 use App\Mailer\Mail;
-use App\Mailer\MailerService;
 use App\Event\EnquiryEvent;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class ContactPageEventSubscriber implements EventSubscriberInterface
 {
-    private $mailerService;
+    private $mailer;
 
-    public function __construct(MailerService $mailerService)
+    public function __construct(MailerInterface $mailer)
     {
-        $this->mailerService=$mailerService;
+        $this->mailer=$mailer;
     }
 
     public function onCustomEvent(EnquiryEvent $event)
     {
         $enquiry= $event->getCode();
 
-        $this->mailerService->sendMail(new Mail('Contact enquiry from symblog'
-            ,EmailAddress::createEmailAddress('simsimpeeeters@gmail.com','blabla')
-            ,EmailAddress::createEmailAddress('simsimpeeeters@gmail.com','blabla')
-            ,$this->mailerService->renderTemplate('page/contactEmail.txt.twig', [
-                'enquiry' => $enquiry,
-            ])));
+        $email = (new Email())
+            ->from('hello@example.com')
+            ->to('you@example.com')
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        try {
+            $this->mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+        }
+
     }
 
     /**

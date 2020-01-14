@@ -9,7 +9,7 @@ class Mail
      private $subject;
      private $sender;
 
-     public function __construct($subject,$sender,$receiver,$body)
+     public function __construct($subject, $sender, $receiver,$body)
      {
          $this->body=$body;
          $this->subject=$subject;
