@@ -1,0 +1,23 @@
+blog:
+  home_nav_title: Home
+  about_nav_title: About
+  contact_nav_title: Contact
+  title: Creating a blog in Symfony
+  created.by: Created by
+  continue.reading: Continue reading ...
+  comments: Comments
+  tags: Tags
+  posted.by: Posted by
+  no.articles: There are no article entries for symblog
+  categories: Categories
+  no.categories: There are no categories
+  tag.cloud: Tag cloud
+  no.tags: There are no tags
+  latest.comments: Latest comments
+  commented.on: Commented on
+  no.comments: There are no recent comments
+  contact.title: Want to contact symblog?
+  image: Photo not found
+  add.comment: Add comment
+  add.comment.post: Add comment for blog post
+  first.comment: There are no comments for this article. Be the first ...

@@ -3,7 +3,7 @@
 Before we start. Make sure to write your own documentation. 
 If you can explain these concepts yourself. it means you have a solid grasp on them. 
 
-####Overview
+#### Overview
 
 The following areas will be demonstrated in this chapter:
 
@@ -11,7 +11,7 @@ The following areas will be demonstrated in this chapter:
 1. Bundles: Symfony5 Building Blocks
 1. The Default Controller
 
-####Creating a Development Domain
+#### Creating a Development Domain
 
 for this turtorial we won't be using a server-setup like Apache or Ampps. 
 instead we will be using docker. The docker files will already 
@@ -55,7 +55,7 @@ alias dc_start='docker-compose up -d'
 alias dc_stop='docker-compose stop'
 ```
 
-#### Bundles: Symfony5 Building Blocks
+#### Bundles: Symfony Building Blocks
 
 Bundles are the basic building block of any Symfony5 application, 
 in fact the Symfony5 framework is itself a bundle. 
@@ -358,7 +358,7 @@ with the `$form->handleRequest($request)` is so the form knows is it is submitte
 
 then we check in an if statement if the form is submitted and if its valid 
 
-####Validation
+#### Validation
 
 We want the user to be serious when filling in our form. 
 the `name` needs to be filled in, 
@@ -399,7 +399,7 @@ How we validate and if we want to give a message
 
 https://symfony.com/doc/current/validation.html -- validation!
 
-####Events & Subscribers
+#### Events & Subscribers
 
 when the user has submitted his contact form. We want to send a mail.
 However we don't want to do this in our controller. 
@@ -645,9 +645,9 @@ the real HTML code sent to users:
 
 https://foundation.zurb.com/emails/docs/inky.html -- inky!
 
-## [Part 3] -  The Blog Model: Using Doctrine 5
+## [Part 3-4] -  The Blog Model: Using Doctrine
 
-####Overview
+#### Overview
 
 his chapter will begin to explore the blog model. 
 The model will be implemented using the Doctrine 5 Object Relation Mapper (ORM).
@@ -658,7 +658,7 @@ It also provides a proprietary SQL dialect called the Doctrine Query Language (D
 * Data fixtures
 * The blog model
 
-####doctrine mapping
+#### doctrine mapping
 
 Before we can add or get data from our database. 
 We first need to make our entities and make sure our mapping is done correctly
@@ -850,7 +850,7 @@ Do this for every entity
 
 https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/xml-mapping.html#defining-many-to-one-associations - xml mapping!
  
-####data fixtures
+#### data fixtures
 
 Data fixtures makes it quick and easy to add random data to our database. 
 It is also useful to test use-cases on our database. 
@@ -956,7 +956,7 @@ And make sure our `getReference` works.
 
 https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html -- data fixtures!
 
-####data model
+#### data model
 
 In the `page` directory of the templates directory. Make the file 
 
@@ -1257,6 +1257,21 @@ If you would like to practice.
 
 https://symfony.com/doc/current/doctrine.html - doctrine!
 
+## [Part 5] - Migrations & Unit testing and Translations 
 
+#### migrations
 
+`Database migrations` are a way to safely update your `database schema` both locally 
+and on production. Instead of running the `doctrine:schema:update command` or 
+applying the database changes manually with SQL statements, migrations allow to 
+replicate the changes in your database schema in a safe manner.
 
+https://symfony.com/doc/master/bundles/DoctrineMigrationsBundle/index.html -- migrations!
+
+#### unit testing
+
+https://symfony.com/doc/current/testing.html -- unit testing!
+
+#### translations
+
+https://symfony.com/doc/current/translation.html -- translations!

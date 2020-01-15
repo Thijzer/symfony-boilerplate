@@ -27,7 +27,7 @@ class Enquiry {
         return $this->email;
     }
 
-    public function setEmail($email): void
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -37,7 +37,7 @@ class Enquiry {
         return $this->subject;
     }
 
-    public function setSubject($subject)
+    public function setSubject(string $subject)
     {
         $this->subject = $subject;
     }
@@ -47,7 +47,7 @@ class Enquiry {
         return $this->body;
     }
 
-    public function setBody($body)
+    public function setBody(string $body)
     {
         $this->body = $body;
     }

@@ -12,7 +12,7 @@ class EnquiryEvent extends Event
     {
         $this->code = $code;
     }
-    public function getCode()
+    public function getEnquiry()
     {
         return $this->code;
     }

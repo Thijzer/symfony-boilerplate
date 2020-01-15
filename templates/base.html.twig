@@ -29,7 +29,8 @@
         </div>
         <hgroup>
             <h2>{% block blog_title %}<a href="{{ path('blog_homepage') }}">symblog</a>{% endblock %}</h2>
-            <h3>{% block blog_tagline %}<a href="{{ path('blog_homepage') }}">home</a>{% endblock %}</h3>
+            <h3>{% block blog_tagline %}<a href="{{ path('blog_homepage') }}">
+                    {% trans %}blog.title{% endtrans %}</a>{% endblock %}</h3>
         </hgroup>
     </header>
     <section class="main-col">

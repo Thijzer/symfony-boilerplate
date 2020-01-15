@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\Enquiry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\Mailer\EmailAddress;
@@ -9,11 +10,6 @@ use App\Mailer\Mail;
 use App\Event\EnquiryEvent;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mailer\Transport;
-use Symfony\Component\Mime\Email;
-
-use Symfony\Component\Mailer\Bridge\Google\Transport\GmailSmtpTransport;
-
 
 class ContactPageEventSubscriber implements EventSubscriberInterface
 {
@@ -21,14 +17,18 @@ class ContactPageEventSubscriber implements EventSubscriberInterface
 
     public function __construct(MailerInterface $mailer)
     {
-        $this->mailer=$mailer;
+        $this->mailer = $mailer;
     }
 
-    public function onCustomEvent(EnquiryEvent $event)
+    public function onEnquirySubmitted(EnquiryEvent $event)
     {
-        $enquiry= $event->getCode();
-        $mail = $this->getMail($enquiry);
+        $enquiry = $event->getEnquiry();
 
+        $this->sendMail($this->getMail($enquiry));
+    }
+
+    private function sendMail(Mail $mail)
+    {
         try {
             $email = (new TemplatedEmail())
                 ->from($mail->getSender()->getEmail())
@@ -41,10 +41,9 @@ class ContactPageEventSubscriber implements EventSubscriberInterface
             $this->mailer->send($email);
         } catch (TransportExceptionInterface $e) {
         }
-
     }
 
-    private function getMail($enquiry)
+    private function getMail(Enquiry $enquiry)
     {
         return new Mail(
             $enquiry->getSubject(),
@@ -61,7 +60,7 @@ class ContactPageEventSubscriber implements EventSubscriberInterface
     {
         return [
             EnquiryEvent::ENQUERY_CREATED => [
-                ['onCustomEvent', 10],
+                ['onEnquirySubmitted', 10],
             ],
         ];
     }

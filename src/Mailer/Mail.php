@@ -9,33 +9,35 @@ class Mail
      private $subject;
      private $sender;
 
-     public function __construct($subject, $sender, $receiver,$body)
-     {
+     public function __construct(
+         string $subject,
+         EmailAddress $sender,
+         EmailAddress $receiver,
+         string $body
+     ) {
          $this->body=$body;
          $this->subject=$subject;
          $this->receiver=$receiver;
          $this->sender=$sender;
      }
 
-
-    public function getBody()
-    {
+     public function getBody()
+     {
         return $this->body;
-    }
+     }
 
-    public function getSender()
-    {
-        return $this->sender;
-    }
+     public function getSender(): EmailAddress
+     {
+         return $this->sender;
+     }
 
-    public function getReceiver()
-    {
-        return $this->receiver;
-    }
+     public function getReceiver(): EmailAddress
+     {
+         return $this->receiver;
+     }
 
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
+     public function getSubject()
+     {
+         return $this->subject;
+     }
 }

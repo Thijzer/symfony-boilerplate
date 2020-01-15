@@ -1,7 +1,10 @@
 framework:
-    messenger:
-        transports:
-            async: "%env(MESSENGER_TRANSPORT_DSN)%"
+  messenger:
+    # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+    # failure_transport: failed
 
-        routing:
-            'Symfony\Component\Mailer\Messenger\SendEmailMessage':  async
+    transports:
+      email: "doctrine://default"
+
+    routing:
+      Symfony\Component\Mailer\Messenger\SendEmailMessage : email
