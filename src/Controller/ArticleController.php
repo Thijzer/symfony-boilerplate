@@ -76,7 +76,7 @@ class ArticleController extends AbstractController
 
     private function getArticle($slug)
     {
-        $article = $this->getArticleRepository()->findOneBy(array('slug'=> $slug));
+        $article = $this->getArticleRepository()->findOneBy(['slug'=> $slug]);
         if (null === $article) {
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
