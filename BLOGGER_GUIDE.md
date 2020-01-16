@@ -42,7 +42,7 @@ Docker-compose stop
 
 Here under you will find some shortcuts for commands. Copy paste these 
 into your terminal. This makes it easier to type and more familiar if you have 
-already used Docker.
+already used Composer.
 
 ```
 alias d_composer='docker-compose exec fpm php -d memory_limit=-1 /usr/local/bin/composer $1'
