@@ -492,7 +492,7 @@ class EnquiryEvent extends Event
     {
         $this->code = $code;
     }
-    public function getCode()
+    public function getEnquiry()
     {
         return $this->code;
     }
@@ -512,9 +512,9 @@ class ContactPageEventSubscriber implements EventSubscriberInterface
         $this->mailer=$mailer;
     }
 
-    public function onCustomEvent(EnquiryEvent $event)
+    public function onEnquerySubmitted(EnquiryEvent $event)
     {
-        $enquiry= $event->getCode();
+        $enquiry= $event->getEnquiry();
         $mail = $this->getMail($enquiry);
 
         try {
@@ -549,7 +549,7 @@ class ContactPageEventSubscriber implements EventSubscriberInterface
     {
         return [
             EnquiryEvent::ENQUERY_CREATED => [
-                ['onCustomEvent', 10],
+                ['onEnquirySubmitted', 10],
             ],
         ];
     }
@@ -580,7 +580,6 @@ If you want to send your emails assync add this to `messenger.yaml`.
 The email won't be send out immediately. 
 First they wil get into a waiting line. And even if they fail 
 you will be able to  send them again later.
-
 
 https://www.youtube.com/watch?v=yfTLx-fcJio -- youtube symfony 4 in action!
 https://symfony.com/doc/current/mailer.html -- symfony mailer!
