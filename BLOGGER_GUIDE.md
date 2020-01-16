@@ -199,17 +199,14 @@ lastly add a page directory with the file
             posuere cubilia Curae.</p>
     </article>
 {% endblock %}
-```
+```   
+
 
 In the source directory you have to make a controller directory.
 
 and add the following files
 
-* ArticleController.php
-* CategoryController.php
-* CommentController.php
 * PageController.php
-
 
 For now we will work in PageController.php.
 First add this code.
@@ -330,7 +327,7 @@ https://symfony.com/doc/current/forms.html -- forms!
 In our PageController we need to make a new function
 
 ```
-    public function ContactPage(Request $request)
+    public function ContactPage(Request $request,MailerInterface $mailer)
     {
         $enquiry = new Enquiry();
         $form = $this->createForm(EnquiryType::class,$enquiry);
@@ -338,7 +335,13 @@ In our PageController we need to make a new function
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->eventDispatcher->dispatch(new EnquiryEvent($enquiry), EnquiryEvent::ENQUERY_CREATED);
+            $email = (new Email())
+                    ->from('fromemail@example.be')
+                    ->to('email@example.be')
+                    ->subject('example')
+                    ->text('blabla blabla bla');
+
+            $this->mailer->send($email);
 
             $this->addFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
             return $this->redirectToRoute('page_contact');
@@ -355,7 +358,8 @@ first we need to make an instance of our class `enquiry` . and create a form of 
 
 with the `$form->handleRequest($request)` is so the form knows is it is submitted.
 
-then we check in an if statement if the form is submitted and if its valid 
+then we check in an if statement if the form is submitted and if its valid. 
+If it is valid we want to send an email. 
 
 #### Validation
 
@@ -480,6 +484,13 @@ class Mail
 
 In our `Event` directory we will make the file
 * EnquiryEvent.php
+
+First delete what we did to send a mail in `PageController` and replace it with this. 
+
+```  
+$this->eventDispatcher->dispatch(new EnquiryEvent($enquiry), EnquiryEvent::ENQUERY_CREATED); 
+```
+This will trigger our event.  
 
 ```
 class EnquiryEvent extends Event
@@ -677,7 +688,7 @@ It also provides a proprietary SQL dialect called the Doctrine Query Language (D
 #### doctrine mapping
 
 Before we can add or get data from our database. 
-We first need to make our entities and make sure our mapping is done correctly
+We first need to make our entities and make sure our mapping is done correctly.
 
 In the Entity directory we need to some files
 
@@ -863,7 +874,6 @@ doctrine will use this to make our database.
 
 Do this for every entity
 
-
 https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/xml-mapping.html#defining-many-to-one-associations - xml mapping!
  
 #### data fixtures
@@ -974,7 +984,7 @@ https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html -- data
 
 #### data model
 
-In the `page` directory of the templates directory. Make the file 
+In the `page` directory of the templates directory. Make the file. 
 
 * sidebar.html.twig
 
@@ -1063,9 +1073,15 @@ Again we need to add a file in our `page` directory.
         {{ pagerfanta(my_pager) }}
     </div>
 {% endblock %}
-```
+``` 
 
-then we will work in our `ArticleController.php`
+Then make some controllers to work in.
+
+* ArticleController.php
+* CategoryController.php
+* CommentController.php
+
+We will work in our `ArticleController.php`
 
 ```
 class ArticleController extends AbstractController

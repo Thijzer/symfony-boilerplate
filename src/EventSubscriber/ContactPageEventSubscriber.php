@@ -35,8 +35,7 @@ class ContactPageEventSubscriber implements EventSubscriberInterface
                 ->to($mail->getReceiver()->getEmail())
                 ->subject($mail->getSubject())
                 ->htmlTemplate('emails/contactEmail.html.twig')
-                ->context(['name' => $mail->getReceiver()->getName(),'body' => $mail->getBody() ])
-            ;
+                ->context(['name' => $mail->getReceiver()->getName(),'body' => $mail->getBody() ]);
 
             $this->mailer->send($email);
         } catch (TransportExceptionInterface $e) {
