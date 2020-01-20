@@ -6,14 +6,14 @@ class EnquiryEvent extends Event
 {
     public const ENQUERY_CREATED = 'enquery_created';
 
-    private $code;
+    private $enquiry;
 
-    public function __construct($code)
+    public function __construct($enquiry)
     {
-        $this->code = $code;
+        $this->enquiry = $enquiry;
     }
     public function getEnquiry()
     {
-        return $this->code;
+        return $this->enquiry;
     }
 }

@@ -41,7 +41,7 @@ class Comment
         return $this->id;
     }
 
-    public function setUser($user)
+    public function setUser(string $user)
     {
         $this->user = $user;
     }
@@ -51,7 +51,7 @@ class Comment
         return $this->user;
     }
 
-    public function setComment($comment)
+    public function setComment(Comment $comment)
     {
         $this->comment = $comment;
     }

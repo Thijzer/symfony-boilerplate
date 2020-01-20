@@ -38,7 +38,4 @@ class EmailAddress
         return implode(', ',[$this->getEmail(),$this->getName()]);
     }
 
-
-
-
 }

@@ -54,7 +54,7 @@ class ArticleController extends AbstractController
 
     public function showByCategory($category_id,$page = 1)
     {
-        $articlesQuery = $this->getArticleRepository()->findAllArticlesByCategoryIDS($category_id);
+        $articlesQuery = $this->getArticleRepository()->findAllArticlesByCategoryID($category_id);
         $pagerfanta = $this->pagination($page, $articlesQuery);
 
         return $this->render('Page/index.html.twig', [

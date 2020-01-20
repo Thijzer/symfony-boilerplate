@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Utils\Slug;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Article
@@ -45,7 +46,7 @@ class Article
 
     }
 
-    public function createArticle($author,$title,$body)
+    public function createArticle( string $author,string $title,string $body)
     {
         $this->author=$author;
         $this->body=$body;
@@ -57,7 +58,7 @@ class Article
         return $this->id;
     }
 
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
 
@@ -69,7 +70,7 @@ class Article
         return $this->title;
     }
 
-    public function setAuthor($author)
+    public function setAuthor(string $author)
     {
         $this->author = $author;
     }
@@ -79,7 +80,7 @@ class Article
         return $this->author;
     }
 
-    public function setBody($body)
+    public function setBody(string $body)
     {
         $this->body = $body;
     }
@@ -93,7 +94,7 @@ class Article
         }
     }
 
-    public function setImage($image)
+    public function setImage(string $image)
     {
         $this->image = $image;
     }
@@ -103,7 +104,7 @@ class Article
         return $this->image;
     }
 
-    public function setTags($tags)
+    public function setTags(string $tags)
     {
         $this->tags = $tags;
     }
@@ -153,7 +154,7 @@ class Article
         return $this->comments;
     }
 
-    public function setSlug($slug)
+    public function setSlug(string $slug)
     {
         $this->slug = Slug::slugify($slug);
     }

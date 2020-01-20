@@ -6,7 +6,7 @@
         </div>
     {% endfor %}
 
-    {% include 'form/form.html.twig' with { 'form': form } %}
+    {% include 'form/commentForm.html.twig' with { 'form': form } %}
 
     {# trick to redirect from a embedded controller with form #}
     {% if form.vars.submitted and form.vars.valid %}

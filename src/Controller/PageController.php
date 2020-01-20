@@ -24,7 +24,7 @@ class PageController extends AbstractController
 
     public function AboutPage()
     {
-        return $this->render('page/about.html.twig', []);
+        return $this->render('page/commentForm.html.twig', []);
     }
 
     public function ContactPage(Request $request)

@@ -12,7 +12,7 @@
     </div>
     {% endfor %}
 
-    <p>{% trans %}blog.contact.title{% endtrans %}</p>
+    <p>{{ trans('blog.contact.title')}}</p>
 
     {{ form_start(form, { 'attr' : { 'class': 'blogger' } }) }}
 

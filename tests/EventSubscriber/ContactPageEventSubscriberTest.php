@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Event;
+namespace App\Tests\EventSubscriber;
 
 use App\Entity\Enquiry;
 use App\Event\EnquiryEvent;

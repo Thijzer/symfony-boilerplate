@@ -1456,7 +1456,7 @@ blog:
 Just replace the the text to dutch and it's done for this file aswell.  
 
 ```
- <h3>{% trans %}blog.comments{% endtrans %}</h3>
+ <h3>{{ trans('blog.about') }}</h3>
 ```
 
 Use this in your twig files. 

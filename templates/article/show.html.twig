@@ -15,7 +15,7 @@
     </article>
     <section class="comments" id="comments">
         <section class="previous-comments">
-            <h3>{% trans %}blog.comments{% endtrans %}</h3>
+            <h3>{{ trans('blog.comments')}}</h3>
             {% include 'Comment/index.html.twig' with { 'comments': comments } %}
         </section>
         <h3>{% trans %}blog.add.comment{% endtrans %}</h3>

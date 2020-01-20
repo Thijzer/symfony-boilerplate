@@ -34,7 +34,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    public function findAllArticlesByCategoryIDS($categoryId)
+    public function findAllArticlesByCategoryID($categoryId)
     {
         $qb = $this->createQueryBuilder('a')
             ->select('a, co')
