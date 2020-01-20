@@ -20,7 +20,7 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function findAllArticlesQuery($limit = null)
+    public function findAllArticlesQuery(int $limit = null)
     {
         $qb = $this->createQueryBuilder('a')
             ->select('a, c')
@@ -34,7 +34,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb;
     }
 
-    public function findAllArticlesByCategoryID($categoryId)
+    public function findAllArticlesByCategoryID(int $categoryId)
     {
         $qb = $this->createQueryBuilder('a')
             ->select('a, co')
@@ -48,7 +48,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
-    public function findBySlug($slug)
+    public function findBySlug(string $slug)
     {
         return $this->findOneBy(['slug' => $slug]);
     }

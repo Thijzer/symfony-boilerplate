@@ -20,7 +20,7 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    public function getCommentsForBlog($blogId, $isApproved = true)
+    public function getCommentsForBlog($blogId)
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c')
@@ -30,13 +30,13 @@ class CommentRepository extends ServiceEntityRepository
         ;
         $qb
             ->andWhere('c.approved = :approved')
-            ->setParameter('approved', $isApproved)
+            ->setParameter('approved', true)
         ;
         return $qb->getQuery()
             ->getResult();
     }
 
-    public function getLatestComments($limit = 10)
+    public function getLatestComments(int $limit = 10)
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c')
