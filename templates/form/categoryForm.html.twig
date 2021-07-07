@@ -1,0 +1,11 @@
+{{ form_start(form,{ 'attr' : {'class' : 'blogger'}}) }}
+    {{ form_widget(form) }}
+
+<div>
+    <label>Code</label>
+    <input type="text"  name="{{ code_name }}" value="{{ code_name }}" readonly>
+</div>
+<p>
+    <input type="submit" value="Submit">
+</p>
+{{ form_end(form) }}

@@ -1,0 +1,23 @@
+blog:
+  home_nav_title: Home
+  about_nav_title: Over
+  contact_nav_title: Contact
+  title: Maken van een blog in Symfony
+  created.by: gemaakt door
+  continue.reading: verder lezen ...
+  comments: Opmerkingen
+  tags: Tags
+  posted.by: Gepost door
+  no.articles: Er zijn geen artiekels voor symblog
+  categories: Categories
+  no.categories: Er zijn geen categorieën
+  tag.cloud: Tag cloud
+  no.tags: Er zijn geen tags
+  latest.comments: Laatste opmerkingen
+  commented.on: heeft een opmerking geplaatst op
+  no.comments: Er zijn geen recente opmerkingen
+  contact.title: Wil je symblog contacteren?
+  image: Foto niet gevonden
+  add.comment: Opmerking toevoegen
+  add.comment.post: Voeg een opmerking toe voor artiekel
+  first.comment: Er zijn geen opmerkingen voor dit artiekel. Voeg als eerste een opmerking toe ...

@@ -1,0 +1,16 @@
+{% block body %}
+
+    {% for flashMessage in app.session.flashbag.get('blogger-notice') %}
+        <div class="blogger-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {% include 'form/commentForm.html.twig' with { 'form': form } %}
+
+    {# trick to redirect from a embedded controller with form #}
+    {% if form.vars.submitted and form.vars.valid %}
+        <script>location.href = document.referrer;</script>
+    {% endif %}
+
+{% endblock %}

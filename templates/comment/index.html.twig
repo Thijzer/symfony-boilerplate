@@ -1,0 +1,11 @@
+{% for comment in comments %}
+    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
+        <header>
+            <p><span class="highlight">{{ comment.user }}</span> {{ trans('blog.commented.on')}}
+                <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('c') }}</time></p>
+        </header>
+        <p>{{ comment.comment }}</p>
+    </article>
+{% else %}
+    <p>{{ trans('blog.first.comment')}}</p>
+{% endfor %}

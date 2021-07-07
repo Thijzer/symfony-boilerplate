@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+    <article class="blog">
+        <header>
+            <div class="date"><time datetime="{{ article.created|date('c') }}">{{ article.created|date('l, F j, Y') }}</time></div>
+            <h2>{{ article.title }}</h2>
+        </header>
+        <img src="{{ asset(['images/', article.image]|join) }}" alt="{{ article.title }} {% trans %}blog.image{% endtrans %}" class="large" />
+        <div>
+            <p>{{ article.body }}</p>
+        </div>
+    </article>
+    <section class="comments" id="comments">
+        <section class="previous-comments">
+            <h3>{{ trans('blog.comments')}}</h3>
+            {% include 'Comment/index.html.twig' with { 'comments': comments } %}
+        </section>
+        <h3>{% trans %}blog.add.comment{% endtrans %}</h3>
+        {{ render(controller('App\\Controller\\CommentController::create', { 'articleId': article.id, 'request': app.request})) }}
+    </section>
+{% endblock %}
+

@@ -9,3 +9,11 @@ doctrine:
             collate: utf8mb4_unicode_ci
 
         url: '%env(resolve:DATABASE_URL)%'
+    orm:
+        mappings:
+            App\Entity:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine_mappings'
+                prefix: 'App\Entity'
+                alias: App

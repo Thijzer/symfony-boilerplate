@@ -14,6 +14,7 @@ alias dc_stop='docker-compose stop'
 ```
 
 Project installation
+
 ```
 cp .env.dist .env
 dc_start

@@ -3,6 +3,12 @@ version: '3'
 services:
   fpm:
     image: 'akeneo/fpm:php-7.3'
+    environment:
+      COMPOSER_HOME: '/home/docker/.composer'
+      PHP_IDE_CONFIG: 'serverName=pim-ce-cli'
+      PHP_XDEBUG_ENABLED: 1
+      PHP_XDEBUG_IDE_KEY: 'PHPSTORM'
+      PHP_XDEBUG_REMOTE_HOST: '10.254.254.254'
     user: docker
     volumes:
       - ./:/app
